@@ -9,7 +9,7 @@ body {
   margin: 0;
   overflow: hidden;
   background: #87CEEB;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
 /* ========== GLOBAL DIALOG BUBBLES ========== */
@@ -85,6 +85,19 @@ body {
   position: relative;
 }
 
+/* Textured Afro */
+.afro {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #1a1010 40%, #000 100%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  filter: blur(1px);
+}
+
 /* Face */
 .eye {
   position: absolute;
@@ -116,18 +129,6 @@ body {
   height: 12px;
   border-radius: 0 0 20px 20px;
   border-bottom: 3px solid #000;
-  transform: translateX(-50%);
-}
-
-/* Hair */
-.hair {
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  width: 76px;
-  height: 44px;
-  background: #111;
-  border-radius: 40px;
   transform: translateX(-50%);
 }
 
@@ -177,7 +178,6 @@ body {
 
 /* Woman styling */
 #woman .head { background: #3a2615; }
-#woman .hair { background: #1a1010; height: 54px; }
 #woman .body { background: #b03060; }
 #woman .leg { background: #222; }
 #woman .arm { background: #3a2615; }
@@ -195,24 +195,15 @@ body {
 }
 
 /* Hearts + kiss */
-#hearts {
+#hearts, #kiss {
   position: absolute;
-  top: 30%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 32px;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
-#kiss {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 26px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
+#hearts { top: 30%; font-size: 32px; }
+#kiss { top: 42%; font-size: 26px; }
 
 /* Car in scene 1 */
 #car1 {
@@ -285,12 +276,22 @@ body {
 .driver { left: 38%; }
 .passenger { right: 38%; }
 
-.driver .head, .passenger .head {
-  width: 70px;
-  height: 70px;
+/* Bald boy */
+.driver .head {
+  background: #2a1b0e;
 }
 
-/* Hands on wheel */
+/* Afro girl */
+.passenger .head {
+  background: #3a2615;
+}
+.passenger .head .afro {
+  top: -22px;
+  width: 100px;
+  height: 100px;
+}
+
+/* Hands */
 .handOnWheel {
   position: absolute;
   bottom: 190px;
@@ -483,7 +484,7 @@ body {
 .tail.left { left: 20px; }
 .tail.right { right: 20px; }
 
-/* Car bounce (camera shake feel) */
+/* Car bounce */
 @keyframes carBounce {
   0% { transform: translate(-50%, 0); }
   50% { transform: translate(-50%, -4px); }
@@ -523,7 +524,6 @@ body {
 
   <div id="man" class="character" style="left:-180px;">
     <div class="head">
-      <div class="hair"></div>
       <div class="eye left"></div>
       <div class="eye right"></div>
       <div class="brow left"></div>
@@ -543,7 +543,7 @@ body {
 
   <div id="woman" class="character" style="right:-180px;">
     <div class="head">
-      <div class="hair"></div>
+      <div class="afro"></div>
       <div class="eye left"></div>
       <div class="eye right"></div>
       <div class="brow left"></div>
@@ -569,7 +569,7 @@ body {
   <div id="kiss">💋</div>
 
   <div id="dialogMan" class="dialog" style="bottom: 340px; left: 20%;">
-    You look even better in person.
+    You look amazing today.
   </div>
   <div id="dialogWoman" class="dialog" style="bottom: 340px; right: 20%;">
     I’m glad you came. Let’s ride.
@@ -582,8 +582,7 @@ body {
   <div class="steeringWheel"></div>
 
   <div class="driver">
-    <div class="head" style="background:#2a1b0e;">
-      <div class="hair"></div>
+    <div class="head">
       <div class="eye left"></div>
       <div class="eye right"></div>
       <div class="brow left"></div>
@@ -593,8 +592,8 @@ body {
   </div>
 
   <div class="passenger">
-    <div class="head" style="background:#3a2615;">
-      <div class="hair"></div>
+    <div class="head">
+      <div class="afro"></div>
       <div class="eye left"></div>
       <div class="eye right"></div>
       <div class="brow left"></div>
@@ -603,154 +602,3 @@ body {
     </div>
   </div>
 
-  <div class="handOnWheel"></div>
-  <div class="passengerHand"></div>
-
-  <div id="dialogInterior" class="dialog">
-    You ready?  
-    <br><strong>Always.</strong>
-  </div>
-</div>
-
-<!-- ========== SCENE 3: DRIVING BACK VIEW ========== -->
-<div id="scene3">
-  <div class="cloud" style="left:10%; animation-delay:0s;"></div>
-  <div class="cloud" style="left:50%; animation-delay:6s;"></div>
-  <div class="cloud" style="left:80%; animation-delay:12s;"></div>
-
-  <div class="layerCity"></div>
-  <div class="layerHills"></div>
-
-  <div id="carBack">
-    <div class="rear-window"></div>
-    <div class="tail left"></div>
-    <div class="tail right"></div>
-  </div>
-
-  <div id="road"></div>
-  <div id="lane"></div>
-
-  <div id="driveHearts">💖</div>
-</div>
-
-<div id="fadeOverlay"></div>
-
-<script>
-// ====== ELEMENTS ======
-const man = document.getElementById("man");
-const woman = document.getElementById("woman");
-const car1 = document.getElementById("car1");
-const scene1 = document.getElementById("scene1");
-const carInterior = document.getElementById("carInterior");
-const scene3 = document.getElementById("scene3");
-const hearts = document.getElementById("hearts");
-const kiss = document.getElementById("kiss");
-const dialogMan = document.getElementById("dialogMan");
-const dialogWoman = document.getElementById("dialogWoman");
-const dialogInterior = document.getElementById("dialogInterior");
-const driveHearts = document.getElementById("driveHearts");
-const fadeOverlay = document.getElementById("fadeOverlay");
-
-let manX = -180;
-let womanX = -180;
-
-// ====== SCENE 1: WALK IN ======
-const meetInterval = setInterval(() => {
-  manX += 2;
-  womanX += 2;
-
-  man.style.left = manX + "px";
-  woman.style.right = womanX + "px";
-
-  if (manX >= window.innerWidth / 2 - 280) {
-    clearInterval(meetInterval);
-
-    // Show dialogue
-    setTimeout(() => {
-      dialogMan.style.opacity = 1;
-      setTimeout(() => {
-        dialogWoman.style.opacity = 1;
-
-        // Hearts
-        setTimeout(() => {
-          hearts.style.opacity = 1;
-
-          // Kiss
-          setTimeout(() => {
-            kiss.style.opacity = 1;
-
-            // Fade hearts + kiss + dialog
-            setTimeout(() => {
-              hearts.style.opacity = 0;
-              kiss.style.opacity = 0;
-              dialogMan.style.opacity = 0;
-              dialogWoman.style.opacity = 0;
-
-              // Walk them toward car
-              man.style.animation = "none";
-              woman.style.animation = "none";
-
-              let stepToCar = 0;
-              const toCarInterval = setInterval(() => {
-                stepToCar++;
-                manX += 1.5;
-                womanX += 1.5;
-                man.style.left = manX + "px";
-                woman.style.right = womanX + "px";
-                man.style.bottom = 200 - stepToCar * 0.4 + "px";
-                woman.style.bottom = 200 - stepToCar * 0.4 + "px";
-
-                if (stepToCar > 40) {
-                  clearInterval(toCarInterval);
-
-                  setTimeout(() => {
-                    man.style.display = "none";
-                    woman.style.display = "none";
-                    car1.style.display = "block";
-
-                    // Switch to interior
-                    setTimeout(() => {
-                      scene1.style.display = "none";
-                      carInterior.style.display = "block";
-
-                      // Interior dialog
-                      setTimeout(() => {
-                        dialogInterior.style.opacity = 1;
-
-                        // Then switch to back-view driving
-                        setTimeout(() => {
-                          dialogInterior.style.opacity = 0;
-                          carInterior.style.display = "none";
-                          scene3.style.display = "block";
-
-                          // Hearts while driving
-                          setTimeout(() => {
-                            driveHearts.style.opacity = 1;
-                            setTimeout(() => {
-                              driveHearts.style.opacity = 0;
-                            }, 2500);
-                          }, 1500);
-
-                          // Fade out at end
-                          setTimeout(() => {
-                            fadeOverlay.style.opacity = 1;
-                          }, 9000);
-
-                        }, 2600);
-                      }, 600);
-
-                    }, 1200);
-                  }, 400);
-                }
-              }, 30);
-            }, 900);
-          }, 900);
-        }, 900);
-      }, 900);
-    }, 600);
-  }
-}, 12);
-</script>
-
-</body>
-</html>
