@@ -1,21 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>Modular Character Engine – Scene Player</title>
-  <link rel="stylesheet" href="./styles/character-base.css" />
-  <link rel="stylesheet" href="./styles/heads.css" />
-  <link rel="stylesheet" href="./styles/torsos.css" />
-  <link rel="stylesheet" href="./styles/arms.css" />
-  <link rel="stylesheet" href="./styles/legs.css" />
-  <link rel="stylesheet" href="./styles/rollerblades.css" />
-  <link rel="stylesheet" href="./styles/meet-scene.css" />
+  <title>Scene Test</title>
   <style>
-    body {
-      margin: 0;
-      background: #000;
+    body { margin: 0; overflow: hidden; background: #87CEEB; }
+
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
+      background: linear-gradient(#87CEEB, #6BCB5C);
     }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 200px;
+      background: #4CAF50;
+    }
+
+    .character {
+      position: absolute;
+      bottom: 200px;
+      width: 120px;
+      height: 260px;
+      transition: 2s ease-out;
+    }
+
+    .male-head-bald, .female-head-afro {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .male-head-bald { background: #2a1b0e; }
+    .female-head-afro { background: #3a2615; }
+
+    .female-head-afro::before {
+      content: "";
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle, #1a1010 0%, #000 100%);
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .male-torso, .female-torso {
+      width: 60px;
+      height: 90px;
+      border-radius: 16px;
+      margin: 10px auto 0;
+    }
+
+    .male-torso { background: #1b3b7a; }
+    .female-torso { background: #b03060; }
+
+    .male-arms, .female-arms {
+      width: 90px;
+      height: 60px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .male-arms div, .female-arms div {
+      width: 20px;
+      height: 60px;
+      border-radius: 14px;
+    }
+
+    .male-arms div { background: #2a1b0e; }
+    .female-arms div { background: #3a2615; }
+
+    .male-legs-jeans, .female-legs-shorts {
+      width: 60px;
+      height: 80px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .male-legs-jeans div {
+      width: 24px;
+      height: 80px;
+      background: #1f1f1f;
+      border-radius: 14px;
+    }
+
+    .female-legs-shorts div {
+      width: 24px;
+      height: 80px;
+      background: #3a2615;
+      border-radius: 14px;
+    }
+
+    .rollerblades {
+      width: 80px;
+      height: 40px;
+      background: #222;
+      border-radius: 10px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .rollerblades div {
+      position: absolute;
+      bottom: -12px;
+      width: 22px;
+      height: 22px;
+      background: #111;
+      border-radius: 50%;
+    }
+
+    .w1 { left: 4px; }
+    .w2 { left: 28px; }
+    .w3 { left: 52px; }
+    .w4 { left: 76px; }
   </style>
 </head>
 
@@ -23,14 +131,95 @@
   <div id="app"></div>
 
   <script type="module">
-    import { MeetScene } from "./scenes/MeetScene.js";
+    // --- Character Builder ---
+    function CharacterBuilder(parts) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "character";
 
-    const app = document.getElementById("app");
+      const head = document.createElement("div");
+      head.className = parts.head.className;
+      wrapper.appendChild(head);
 
-    const scene = new MeetScene();
-    const sceneElement = scene.load();
+      const torso = document.createElement("div");
+      torso.className = parts.torso.className;
+      wrapper.appendChild(torso);
 
-    app.appendChild(sceneElement);
+      const arms = document.createElement("div");
+      arms.className = parts.arms.className;
+      arms.innerHTML = "<div></div><div></div>";
+      wrapper.appendChild(arms);
+
+      const legs = document.createElement("div");
+      legs.className = parts.legs.className;
+      legs.innerHTML = "<div></div><div></div>";
+      wrapper.appendChild(legs);
+
+      const skates = document.createElement("div");
+      skates.className = "rollerblades";
+      skates.innerHTML = `
+        <div class="w1"></div>
+        <div class="w2"></div>
+        <div class="w3"></div>
+        <div class="w4"></div>
+      `;
+      wrapper.appendChild(skates);
+
+      return wrapper;
+    }
+
+    // --- Character Modules ---
+    const MaleHeadBald = { className: "male-head-bald" };
+    const FemaleHeadAfro = { className: "female-head-afro" };
+
+    const MaleTorso = { className: "male-torso" };
+    const FemaleTorso = { className: "female-torso" };
+
+    const MaleArms = { className: "male-arms" };
+    const FemaleArms = { className: "female-arms" };
+
+    const MaleLegsJeans = { className: "male-legs-jeans" };
+    const FemaleLegsShorts = { className: "female-legs-shorts" };
+
+    const Rollerblades = { className: "rollerblades" };
+
+    // --- Characters ---
+    const SkaterGuy = CharacterBuilder({
+      head: MaleHeadBald,
+      torso: MaleTorso,
+      arms: MaleArms,
+      legs: MaleLegsJeans,
+      skates: Rollerblades
+    });
+
+    const SkaterGirl = CharacterBuilder({
+      head: FemaleHeadAfro,
+      torso: FemaleTorso,
+      arms: FemaleArms,
+      legs: FemaleLegsShorts,
+      skates: Rollerblades
+    });
+
+    // --- Scene ---
+    const scene = document.createElement("div");
+    scene.className = "scene";
+
+    const ground = document.createElement("div");
+    ground.className = "ground";
+    scene.appendChild(ground);
+
+    SkaterGuy.style.left = "-200px";
+    SkaterGirl.style.right = "-200px";
+
+    scene.appendChild(SkaterGuy);
+    scene.appendChild(SkaterGirl);
+
+    document.getElementById("app").appendChild(scene);
+
+    // --- Animation ---
+    setTimeout(() => {
+      SkaterGuy.style.left = "40%";
+      SkaterGirl.style.right = "40%";
+    }, 200);
   </script>
 </body>
 </html>
