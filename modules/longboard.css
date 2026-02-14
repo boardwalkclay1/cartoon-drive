@@ -1,0 +1,39 @@
+.longboard {
+  position: relative;
+  width: var(--board-length);
+  height: 28px;
+  background: var(--board-color);
+  border-radius: 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Trucks */
+.longboard::before,
+.longboard::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 40px;
+  height: 12px;
+  background: var(--truck-color);
+  border-radius: 6px;
+}
+
+.longboard::before { left: 20px; }
+.longboard::after { right: 20px; }
+
+/* Wheels */
+.longboard .wheel {
+  position: absolute;
+  bottom: -14px;
+  width: 26px;
+  height: 26px;
+  background: var(--wheel-color);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+}
+
+.longboard .wheel.front-left { left: 18px; }
+.longboard .wheel.front-right { left: 58px; }
+.longboard .wheel.back-left { right: 58px; }
+.longboard .wheel.back-right { right: 18px; }
