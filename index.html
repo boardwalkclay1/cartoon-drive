@@ -2,23 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Cartoon Story</title>
+<title>Cartoon Story Extended</title>
 <style>
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   overflow: hidden;
   background: #87CEEB;
-  font-family: sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* SCENE 1 — MEETING */
+/* ========== SCENE 1: MEETING ========== */
 #scene1 {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(#87CEEB, #6BCB5C);
   overflow: hidden;
 }
+
+/* Background hills */
+.hill {
+  position: absolute;
+  bottom: 160px;
+  width: 400px;
+  height: 200px;
+  background: #3f8f3f;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+.hill.h1 { left: -80px; }
+.hill.h2 { left: 200px; }
+.hill.h3 { right: -120px; }
 
 /* Ground */
 #ground {
@@ -34,47 +50,104 @@ body {
   position: absolute;
   bottom: 200px;
   width: 90px;
-  height: 180px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: walk 1s infinite;
+  animation: walk 0.9s infinite;
 }
 
 /* Head */
 .head {
   width: 60px;
   height: 60px;
-  background: #2a1b0e;
   border-radius: 50%;
+  position: relative;
+}
+
+/* Simple face */
+.eye {
+  position: absolute;
+  top: 22px;
+  width: 8px;
+  height: 8px;
+  background: #000;
+  border-radius: 50%;
+}
+.eye.left { left: 16px; }
+.eye.right { right: 16px; }
+
+.mouth {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  width: 22px;
+  height: 10px;
+  border-radius: 0 0 20px 20px;
+  border-bottom: 3px solid #000;
+  transform: translateX(-50%);
+}
+
+/* Hair */
+.hair {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 70px;
+  height: 40px;
+  background: #111;
+  border-radius: 40px;
+  transform: translateX(-50%);
 }
 
 /* Body */
 .body {
-  width: 50px;
-  height: 70px;
-  background: #111;
-  border-radius: 10px;
-  margin-top: 5px;
+  width: 52px;
+  height: 80px;
+  border-radius: 12px;
+  margin-top: 6px;
 }
 
 /* Legs */
 .legs {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
+  margin-top: 4px;
 }
 
 .leg {
-  width: 20px;
-  height: 50px;
-  background: #222;
-  border-radius: 10px;
+  width: 22px;
+  height: 60px;
+  border-radius: 12px;
 }
 
-/* Woman skin tone */
-#woman .head { background: #3a2615; }
+/* Man styling */
+#man .head {
+  background: #2a1b0e;
+}
+#man .body {
+  background: #1b3b7a;
+}
+#man .leg {
+  background: #111;
+}
+
+/* Woman styling */
+#woman .head {
+  background: #3a2615;
+}
+#woman .hair {
+  background: #1a1010;
+  height: 50px;
+}
+#woman .body {
+  background: #b03060;
+}
+#woman .leg {
+  background: #222;
+}
 
 /* Walk animation */
 @keyframes walk {
@@ -83,59 +156,139 @@ body {
   100% { transform: translateY(0px); }
 }
 
-/* Car for scene 1 */
+/* Car in scene 1 (side-ish view) */
 #car1 {
   position: absolute;
-  bottom: 180px;
+  bottom: 190px;
   left: 50%;
   transform: translateX(-50%);
-  width: 280px;
-  height: 130px;
+  width: 320px;
+  height: 140px;
   background: #222;
-  border-radius: 20px;
+  border-radius: 30px;
   display: none;
 }
-
-#car1:before, #car1:after {
+#car1::before, #car1::after {
   content: "";
   position: absolute;
-  bottom: -25px;
-  width: 70px;
-  height: 70px;
+  bottom: -30px;
+  width: 80px;
+  height: 80px;
   background: #111;
   border-radius: 50%;
 }
+#car1::before { left: 30px; }
+#car1::after { right: 30px; }
 
-#car1:before { left: 20px; }
-#car1:after { right: 20px; }
+/* Windows */
+#car1 .window {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  width: 240px;
+  height: 60px;
+  background: #87a9d8;
+  border-radius: 20px;
+}
 
-/* SCENE 2 — DRIVING */
+/* Tiny hearts when they meet */
+#hearts {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* ========== SCENE 2: DRIVING ========== */
 #scene2 {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: #87CEEB;
   display: none;
   overflow: hidden;
 }
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  top: 40px;
+  width: 140px;
+  height: 70px;
+  background: white;
+  border-radius: 40px;
+  opacity: 0.85;
+  animation: cloudMove 28s linear infinite;
+}
+.cloud::before, .cloud::after {
+  content: "";
+  position: absolute;
+  background: white;
+  width: 90px;
+  height: 55px;
+  border-radius: 40px;
+}
+.cloud::before { top: -20px; left: 10px; }
+.cloud::after { top: 10px; left: 60px; }
+
+@keyframes cloudMove {
+  0% { left: 110%; }
+  100% { left: -180px; }
+}
+
+/* Distant hills */
+.hill2 {
+  position: absolute;
+  bottom: 200px;
+  width: 500px;
+  height: 260px;
+  background: #3f8f3f;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+.hill2.h21 { left: -120px; }
+.hill2.h22 { left: 220px; }
+.hill2.h23 { right: -160px; }
 
 /* Moving road */
 #road {
   position: absolute;
   bottom: 0;
   width: 200%;
-  height: 200px;
+  height: 220px;
   background: repeating-linear-gradient(
     to bottom,
     #333 0px,
-    #333 80px,
-    #444 80px,
-    #444 160px
+    #333 90px,
+    #444 90px,
+    #444 180px
   );
-  animation: roadMove 1s linear infinite;
+  animation: roadMove 0.8s linear infinite;
+}
+@keyframes roadMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-@keyframes roadMove {
+/* Lane markings */
+#lane {
+  position: absolute;
+  bottom: 110px;
+  width: 200%;
+  height: 10px;
+  background: repeating-linear-gradient(
+    to right,
+    #f5f5f5 0px,
+    #f5f5f5 60px,
+    transparent 60px,
+    transparent 120px
+  );
+  opacity: 0.9;
+  animation: laneMove 0.8s linear infinite;
+}
+@keyframes laneMove {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
@@ -143,66 +296,94 @@ body {
 /* Back-view car */
 #car2 {
   position: absolute;
-  bottom: 120px;
+  bottom: 140px;
   left: 50%;
   transform: translateX(-50%);
   width: 260px;
-  height: 140px;
+  height: 150px;
   background: #222;
-  border-radius: 20px;
+  border-radius: 30px;
+  animation: carBounce 0.7s ease-in-out infinite;
 }
-
-#car2:before, #car2:after {
+#car2::before, #car2::after {
   content: "";
   position: absolute;
-  bottom: -25px;
-  width: 70px;
-  height: 70px;
+  bottom: -30px;
+  width: 80px;
+  height: 80px;
   background: #111;
   border-radius: 50%;
 }
+#car2::before { left: 30px; }
+#car2::after { right: 30px; }
 
-#car2:before { left: 20px; }
-#car2:after { right: 20px; }
-
-/* Clouds */
-.cloud {
+/* Rear window */
+#car2 .rear-window {
   position: absolute;
-  top: 40px;
-  width: 120px;
-  height: 60px;
-  background: white;
-  border-radius: 40px;
-  opacity: 0.8;
-  animation: cloudMove 20s linear infinite;
+  top: 20px;
+  left: 40px;
+  width: 180px;
+  height: 70px;
+  background: #6f8fb8;
+  border-radius: 20px;
 }
 
-.cloud:before, .cloud:after {
-  content: "";
+/* Tail lights */
+.tail {
   position: absolute;
-  background: white;
-  width: 80px;
-  height: 50px;
-  border-radius: 40px;
+  bottom: 20px;
+  width: 30px;
+  height: 20px;
+  background: #ff4444;
+}
+.tail.left { left: 20px; }
+.tail.right { right: 20px; }
+
+/* Car bounce */
+@keyframes carBounce {
+  0% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -4px); }
+  100% { transform: translate(-50%, 0); }
 }
 
-.cloud:before { top: -20px; left: 10px; }
-.cloud:after { top: 10px; left: 50px; }
+/* Hearts over car while driving */
+#driveHearts {
+  position: absolute;
+  bottom: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
 
-@keyframes cloudMove {
-  0% { left: 110%; }
-  100% { left: -150px; }
+/* Fade-out at the end */
+#fadeOverlay {
+  position: absolute;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
 }
 </style>
 </head>
 <body>
 
-<!-- SCENE 1 -->
+<!-- ========== SCENE 1: MEETING ========== -->
 <div id="scene1">
+  <div class="hill h1"></div>
+  <div class="hill h2"></div>
+  <div class="hill h3"></div>
   <div id="ground"></div>
 
-  <div id="man" class="character" style="left:-150px;">
-    <div class="head"></div>
+  <div id="man" class="character" style="left:-160px;">
+    <div class="head">
+      <div class="hair"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
     <div class="body"></div>
     <div class="legs">
       <div class="leg"></div>
@@ -210,8 +391,13 @@ body {
     </div>
   </div>
 
-  <div id="woman" class="character" style="right:-150px;">
-    <div class="head"></div>
+  <div id="woman" class="character" style="right:-160px;">
+    <div class="head">
+      <div class="hair"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
     <div class="body"></div>
     <div class="legs">
       <div class="leg"></div>
@@ -219,30 +405,52 @@ body {
     </div>
   </div>
 
-  <div id="car1"></div>
+  <div id="car1">
+    <div class="window"></div>
+  </div>
+
+  <div id="hearts">❤️ ❤️ ❤️</div>
 </div>
 
-<!-- SCENE 2 -->
+<!-- ========== SCENE 2: DRIVING ========== -->
 <div id="scene2">
-  <div class="cloud" style="left:20%; animation-delay:0s;"></div>
-  <div class="cloud" style="left:60%; animation-delay:5s;"></div>
-  <div class="cloud" style="left:90%; animation-delay:10s;"></div>
+  <div class="cloud" style="left:10%; animation-delay:0s;"></div>
+  <div class="cloud" style="left:50%; animation-delay:6s;"></div>
+  <div class="cloud" style="left:80%; animation-delay:12s;"></div>
 
-  <div id="car2"></div>
+  <div class="hill2 h21"></div>
+  <div class="hill2 h22"></div>
+  <div class="hill2 h23"></div>
+
+  <div id="car2">
+    <div class="rear-window"></div>
+    <div class="tail left"></div>
+    <div class="tail right"></div>
+  </div>
+
   <div id="road"></div>
+  <div id="lane"></div>
+
+  <div id="driveHearts">💖</div>
 </div>
+
+<div id="fadeOverlay"></div>
 
 <script>
-// Move characters toward center
+// ====== SCENE 1 LOGIC ======
 const man = document.getElementById("man");
 const woman = document.getElementById("woman");
 const car1 = document.getElementById("car1");
 const scene1 = document.getElementById("scene1");
 const scene2 = document.getElementById("scene2");
+const hearts = document.getElementById("hearts");
+const driveHearts = document.getElementById("driveHearts");
+const fadeOverlay = document.getElementById("fadeOverlay");
 
-let manX = -150;
-let womanX = -150;
+let manX = -160;
+let womanX = -160;
 
+// Step 1: walk toward center
 const meetInterval = setInterval(() => {
   manX += 2;
   womanX += 2;
@@ -250,24 +458,67 @@ const meetInterval = setInterval(() => {
   man.style.left = manX + "px";
   woman.style.right = womanX + "px";
 
-  if (manX >= window.innerWidth / 2 - 250) {
+  if (manX >= window.innerWidth / 2 - 260) {
     clearInterval(meetInterval);
 
-    // Pause, then jump in car
+    // Step 2: pause, show hearts
     setTimeout(() => {
-      man.style.display = "none";
-      woman.style.display = "none";
-      car1.style.display = "block";
+      hearts.style.opacity = 1;
 
-      // Scene switch
+      // Step 3: fade hearts, move them toward car
       setTimeout(() => {
-        scene1.style.display = "none";
-        scene2.style.display = "block";
-      }, 1200);
+        hearts.style.opacity = 0;
 
-    }, 800);
+        // Stop walk animation, move them slightly down and toward center (as if walking to car)
+        man.style.animation = "none";
+        woman.style.animation = "none";
+
+        let stepToCar = 0;
+        const toCarInterval = setInterval(() => {
+          stepToCar++;
+          manX += 1.5;
+          womanX += 1.5;
+          man.style.left = manX + "px";
+          woman.style.right = womanX + "px";
+          man.style.bottom = 200 - stepToCar * 0.4 + "px";
+          woman.style.bottom = 200 - stepToCar * 0.4 + "px";
+
+          if (stepToCar > 40) {
+            clearInterval(toCarInterval);
+
+            // Step 4: hide characters, show car1
+            setTimeout(() => {
+              man.style.display = "none";
+              woman.style.display = "none";
+              car1.style.display = "block";
+
+              // Step 5: short pause, then switch scene
+              setTimeout(() => {
+                scene1.style.display = "none";
+                scene2.style.display = "block";
+
+                // Step 6: show hearts over car while driving
+                setTimeout(() => {
+                  driveHearts.style.opacity = 1;
+
+                  setTimeout(() => {
+                    driveHearts.style.opacity = 0;
+                  }, 2000);
+                }, 1500);
+
+                // Step 7: fade out at the end
+                setTimeout(() => {
+                  fadeOverlay.style.opacity = 1;
+                }, 9000);
+
+              }, 1200);
+            }, 400);
+          }
+        }, 30);
+      }, 1200);
+    }, 600);
   }
-}, 10);
+}, 12);
 </script>
 
 </body>
