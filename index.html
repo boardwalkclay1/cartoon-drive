@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mini Cartoon</title>
+<style>
+body {
+  margin: 0;
+  background: #87CEEB;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+/* Ground */
+#ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 180px;
+  background: #4CAF50;
+}
+
+/* Characters */
+.character {
+  position: absolute;
+  bottom: 180px;
+  width: 80px;
+  height: 140px;
+  border-radius: 20px;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  animation: walk 1s infinite;
+}
+
+.character .head {
+  width: 55px;
+  height: 55px;
+  background: #2a1b0e;
+  border-radius: 50%;
+  margin-top: -20px;
+}
+
+#man { left: -120px; }
+#woman { right: -120px; background: #333; }
+#woman .head { background: #3a2615; }
+
+/* Walk animation */
+@keyframes walk {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Car */
+#car {
+  position: absolute;
+  bottom: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 120px;
+  background: #222;
+  border-radius: 20px;
+  display: none;
+}
+
+#car:before, #car:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  width: 60px;
+  height: 60px;
+  background: #111;
+  border-radius: 50%;
+}
+
+#car:before { left: 20px; }
+#car:after { right: 20px; }
+
+/* Driving away */
+@keyframes driveAway {
+  0% { transform: translate(-50%, 0) scale(1); }
+  100% { transform: translate(-50%, -300px) scale(0.3); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div id="ground"></div>
+
+<div id="man" class="character">
+  <div class="head"></div>
+</div>
+
+<div id="woman" class="character">
+  <div class="head"></div>
+</div>
+
+<div id="car"></div>
+
+<script>
+// Move characters toward center
+const man = document.getElementById("man");
+const woman = document.getElementById("woman");
+const car = document.getElementById("car");
+
+let manX = -120;
+let womanX = -120;
+
+const meetInterval = setInterval(() => {
+  manX += 2;
+  womanX += 2;
+
+  man.style.left = manX + "px";
+  woman.style.right = womanX + "px";
+
+  if (manX >= window.innerWidth / 2 - 200) {
+    clearInterval(meetInterval);
+    setTimeout(() => {
+      man.style.display = "none";
+      woman.style.display = "none";
+      car.style.display = "block";
+
+      setTimeout(() => {
+        car.style.animation = "driveAway 3s forwards ease-in";
+      }, 800);
+
+    }, 600);
+  }
+}, 10);
+</script>
+
+</body>
+</html>
