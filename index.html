@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Scene Test</title>
+  <title>Scene Test – Fixed Attachments</title>
   <style>
     body { margin: 0; overflow: hidden; background: #87CEEB; }
 
@@ -25,89 +25,112 @@
     .character {
       position: absolute;
       bottom: 200px;
-      width: 120px;
-      height: 260px;
+      width: 140px;
+      height: 320px;
       transition: 2s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .male-head-bald, .female-head-afro {
-      width: 70px;
-      height: 70px;
+    /* HEADS */
+    .male-head-bald, .female-head {
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      margin: 0 auto;
       position: relative;
+      z-index: 1;
     }
 
     .male-head-bald { background: #2a1b0e; }
-    .female-head-afro { background: #3a2615; }
+    .female-head { background: #3a2615; }
 
-    .female-head-afro::before {
-      content: "";
+    /* AFRO OVERLAY */
+    .afro-overlay {
       position: absolute;
-      top: -25px;
+      top: -30px;
       left: 50%;
-      width: 110px;
-      height: 110px;
+      width: 130px;
+      height: 130px;
       background: radial-gradient(circle, #1a1010 0%, #000 100%);
       border-radius: 50%;
       transform: translateX(-50%);
+      z-index: 2;
     }
 
+    /* BODY GROUP (TORSO + ARMS) */
+    .body-group {
+      position: relative;
+      width: 100px;
+      height: 140px;
+      margin-top: -10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* TORSOS */
     .male-torso, .female-torso {
-      width: 60px;
-      height: 90px;
+      width: 70px;
+      height: 100px;
       border-radius: 16px;
-      margin: 10px auto 0;
+      margin-top: 10px;
+      z-index: 1;
     }
 
     .male-torso { background: #1b3b7a; }
     .female-torso { background: #b03060; }
 
-    .male-arms, .female-arms {
-      width: 90px;
-      height: 60px;
-      margin: 0 auto;
+    /* ARMS */
+    .arms {
+      position: absolute;
+      top: 20px;
+      width: 120px;
+      height: 80px;
       display: flex;
       justify-content: space-between;
+      z-index: 0;
     }
 
-    .male-arms div, .female-arms div {
-      width: 20px;
-      height: 60px;
+    .arms div {
+      width: 24px;
+      height: 80px;
       border-radius: 14px;
     }
 
     .male-arms div { background: #2a1b0e; }
     .female-arms div { background: #3a2615; }
 
-    .male-legs-jeans, .female-legs-shorts {
-      width: 60px;
-      height: 80px;
-      margin: 0 auto;
+    /* LEGS */
+    .legs {
+      width: 80px;
+      height: 100px;
+      margin-top: -5px;
       display: flex;
       justify-content: space-between;
     }
 
     .male-legs-jeans div {
-      width: 24px;
-      height: 80px;
+      width: 30px;
+      height: 100px;
       background: #1f1f1f;
       border-radius: 14px;
     }
 
     .female-legs-shorts div {
-      width: 24px;
-      height: 80px;
+      width: 30px;
+      height: 100px;
       background: #3a2615;
       border-radius: 14px;
     }
 
+    /* ROLLERBLADES */
     .rollerblades {
-      width: 80px;
+      width: 100px;
       height: 40px;
       background: #222;
       border-radius: 10px;
-      margin: 0 auto;
+      margin-top: -10px;
       position: relative;
     }
 
@@ -121,9 +144,9 @@
     }
 
     .w1 { left: 4px; }
-    .w2 { left: 28px; }
-    .w3 { left: 52px; }
-    .w4 { left: 76px; }
+    .w2 { left: 32px; }
+    .w3 { left: 60px; }
+    .w4 { left: 88px; }
   </style>
 </head>
 
@@ -136,24 +159,41 @@
       const wrapper = document.createElement("div");
       wrapper.className = "character";
 
+      // HEAD
       const head = document.createElement("div");
       head.className = parts.head.className;
+
+      // AFRO (if needed)
+      if (parts.head.afro) {
+        const afro = document.createElement("div");
+        afro.className = "afro-overlay";
+        head.appendChild(afro);
+      }
+
       wrapper.appendChild(head);
+
+      // BODY GROUP (TORSO + ARMS)
+      const bodyGroup = document.createElement("div");
+      bodyGroup.className = "body-group";
 
       const torso = document.createElement("div");
       torso.className = parts.torso.className;
-      wrapper.appendChild(torso);
+      bodyGroup.appendChild(torso);
 
       const arms = document.createElement("div");
-      arms.className = parts.arms.className;
+      arms.className = parts.arms.className + " arms";
       arms.innerHTML = "<div></div><div></div>";
-      wrapper.appendChild(arms);
+      bodyGroup.appendChild(arms);
 
+      wrapper.appendChild(bodyGroup);
+
+      // LEGS
       const legs = document.createElement("div");
-      legs.className = parts.legs.className;
+      legs.className = parts.legs.className + " legs";
       legs.innerHTML = "<div></div><div></div>";
       wrapper.appendChild(legs);
 
+      // SKATES
       const skates = document.createElement("div");
       skates.className = "rollerblades";
       skates.innerHTML = `
@@ -169,7 +209,7 @@
 
     // --- Character Modules ---
     const MaleHeadBald = { className: "male-head-bald" };
-    const FemaleHeadAfro = { className: "female-head-afro" };
+    const FemaleHeadAfro = { className: "female-head", afro: true };
 
     const MaleTorso = { className: "male-torso" };
     const FemaleTorso = { className: "female-torso" };
