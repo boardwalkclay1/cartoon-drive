@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Mini Cartoon</title>
+<title>Cartoon Story</title>
 <style>
 body {
   margin: 0;
-  background: #87CEEB;
   overflow: hidden;
+  background: #87CEEB;
   font-family: sans-serif;
+}
+
+/* SCENE 1 — MEETING */
+#scene1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#87CEEB, #6BCB5C);
+  overflow: hidden;
 }
 
 /* Ground */
@@ -16,34 +25,55 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 180px;
+  height: 200px;
   background: #4CAF50;
 }
 
 /* Characters */
 .character {
   position: absolute;
-  bottom: 180px;
-  width: 80px;
-  height: 140px;
-  border-radius: 20px;
-  background: #222;
+  bottom: 200px;
+  width: 90px;
+  height: 180px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   animation: walk 1s infinite;
 }
 
-.character .head {
-  width: 55px;
-  height: 55px;
+/* Head */
+.head {
+  width: 60px;
+  height: 60px;
   background: #2a1b0e;
   border-radius: 50%;
-  margin-top: -20px;
 }
 
-#man { left: -120px; }
-#woman { right: -120px; background: #333; }
+/* Body */
+.body {
+  width: 50px;
+  height: 70px;
+  background: #111;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+/* Legs */
+.legs {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leg {
+  width: 20px;
+  height: 50px;
+  background: #222;
+  border-radius: 10px;
+}
+
+/* Woman skin tone */
 #woman .head { background: #3a2615; }
 
 /* Walk animation */
@@ -53,61 +83,165 @@ body {
   100% { transform: translateY(0px); }
 }
 
-/* Car */
-#car {
+/* Car for scene 1 */
+#car1 {
   position: absolute;
-  bottom: 160px;
+  bottom: 180px;
   left: 50%;
   transform: translateX(-50%);
-  width: 260px;
-  height: 120px;
+  width: 280px;
+  height: 130px;
   background: #222;
   border-radius: 20px;
   display: none;
 }
 
-#car:before, #car:after {
+#car1:before, #car1:after {
   content: "";
   position: absolute;
-  bottom: -20px;
-  width: 60px;
-  height: 60px;
+  bottom: -25px;
+  width: 70px;
+  height: 70px;
   background: #111;
   border-radius: 50%;
 }
 
-#car:before { left: 20px; }
-#car:after { right: 20px; }
+#car1:before { left: 20px; }
+#car1:after { right: 20px; }
 
-/* Driving away */
-@keyframes driveAway {
-  0% { transform: translate(-50%, 0) scale(1); }
-  100% { transform: translate(-50%, -300px) scale(0.3); opacity: 0; }
+/* SCENE 2 — DRIVING */
+#scene2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #87CEEB;
+  display: none;
+  overflow: hidden;
+}
+
+/* Moving road */
+#road {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 200px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #333 0px,
+    #333 80px,
+    #444 80px,
+    #444 160px
+  );
+  animation: roadMove 1s linear infinite;
+}
+
+@keyframes roadMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Back-view car */
+#car2 {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 140px;
+  background: #222;
+  border-radius: 20px;
+}
+
+#car2:before, #car2:after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  width: 70px;
+  height: 70px;
+  background: #111;
+  border-radius: 50%;
+}
+
+#car2:before { left: 20px; }
+#car2:after { right: 20px; }
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  top: 40px;
+  width: 120px;
+  height: 60px;
+  background: white;
+  border-radius: 40px;
+  opacity: 0.8;
+  animation: cloudMove 20s linear infinite;
+}
+
+.cloud:before, .cloud:after {
+  content: "";
+  position: absolute;
+  background: white;
+  width: 80px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+.cloud:before { top: -20px; left: 10px; }
+.cloud:after { top: 10px; left: 50px; }
+
+@keyframes cloudMove {
+  0% { left: 110%; }
+  100% { left: -150px; }
 }
 </style>
 </head>
 <body>
 
-<div id="ground"></div>
+<!-- SCENE 1 -->
+<div id="scene1">
+  <div id="ground"></div>
 
-<div id="man" class="character">
-  <div class="head"></div>
+  <div id="man" class="character" style="left:-150px;">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="legs">
+      <div class="leg"></div>
+      <div class="leg"></div>
+    </div>
+  </div>
+
+  <div id="woman" class="character" style="right:-150px;">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="legs">
+      <div class="leg"></div>
+      <div class="leg"></div>
+    </div>
+  </div>
+
+  <div id="car1"></div>
 </div>
 
-<div id="woman" class="character">
-  <div class="head"></div>
-</div>
+<!-- SCENE 2 -->
+<div id="scene2">
+  <div class="cloud" style="left:20%; animation-delay:0s;"></div>
+  <div class="cloud" style="left:60%; animation-delay:5s;"></div>
+  <div class="cloud" style="left:90%; animation-delay:10s;"></div>
 
-<div id="car"></div>
+  <div id="car2"></div>
+  <div id="road"></div>
+</div>
 
 <script>
 // Move characters toward center
 const man = document.getElementById("man");
 const woman = document.getElementById("woman");
-const car = document.getElementById("car");
+const car1 = document.getElementById("car1");
+const scene1 = document.getElementById("scene1");
+const scene2 = document.getElementById("scene2");
 
-let manX = -120;
-let womanX = -120;
+let manX = -150;
+let womanX = -150;
 
 const meetInterval = setInterval(() => {
   manX += 2;
@@ -116,18 +250,22 @@ const meetInterval = setInterval(() => {
   man.style.left = manX + "px";
   woman.style.right = womanX + "px";
 
-  if (manX >= window.innerWidth / 2 - 200) {
+  if (manX >= window.innerWidth / 2 - 250) {
     clearInterval(meetInterval);
+
+    // Pause, then jump in car
     setTimeout(() => {
       man.style.display = "none";
       woman.style.display = "none";
-      car.style.display = "block";
+      car1.style.display = "block";
 
+      // Scene switch
       setTimeout(() => {
-        car.style.animation = "driveAway 3s forwards ease-in";
-      }, 800);
+        scene1.style.display = "none";
+        scene2.style.display = "block";
+      }, 1200);
 
-    }, 600);
+    }, 800);
   }
 }, 10);
 </script>
