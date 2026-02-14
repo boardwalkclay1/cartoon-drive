@@ -2,59 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Love Drive Cartoon</title>
+<title>Love Drive – Detailed Characters</title>
 <style>
 * { box-sizing: border-box; }
 body {
   margin: 0;
   overflow: hidden;
   background: #87CEEB;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ========== GLOBAL DIALOG BUBBLES ========== */
-.dialog {
-  position: absolute;
-  max-width: 220px;
-  padding: 10px 14px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.dialog::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 20px;
-  border-width: 10px 10px 0 10px;
-  border-style: solid;
-  border-color: #ffffff transparent transparent transparent;
-}
-
-/* ========== SCENE 1: MEETING ========== */
-#scene1 {
+/* ========== SCENE WRAPPERS ========== */
+.scene {
   position: absolute;
   inset: 0;
-  background: linear-gradient(#87CEEB, #6BCB5C);
   overflow: hidden;
 }
 
-/* Background hills */
-.hill {
-  position: absolute;
-  bottom: 160px;
-  width: 400px;
-  height: 200px;
-  background: #3f8f3f;
-  border-radius: 50%;
-  opacity: 0.8;
+/* ========== SCENE 1: STREET MEET ========== */
+#scene1 {
+  background: linear-gradient(#87CEEB, #6BCB5C);
 }
-.hill.h1 { left: -80px; }
-.hill.h2 { left: 220px; }
-.hill.h3 { right: -120px; }
 
 /* Ground */
 #ground {
@@ -65,45 +33,64 @@ body {
   background: #4CAF50;
 }
 
-/* Characters */
+/* Simple buildings */
+.building {
+  position: absolute;
+  bottom: 200px;
+  width: 120px;
+  background: #2f3b4a;
+  border-radius: 4px 4px 0 0;
+}
+.building.b1 { left: 10%; height: 180px; }
+.building.b2 { left: 40%; height: 220px; }
+.building.b3 { right: 15%; height: 200px; }
+
+/* Characters base */
 .character {
   position: absolute;
   bottom: 200px;
-  width: 100px;
-  height: 220px;
+  width: 110px;
+  height: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: walk 0.9s infinite;
 }
 
 /* Head */
 .head {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
   position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }
 
-/* Textured Afro */
+/* Skin tones */
+.skin-dark {
+  background: #2a1b0e;
+}
+.skin-medium {
+  background: #3a2615;
+}
+
+/* Textured afro */
 .afro {
   position: absolute;
-  top: -18px;
+  top: -22px;
   left: 50%;
-  width: 90px;
-  height: 90px;
-  background: radial-gradient(circle, #1a1010 40%, #000 100%);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, #2b1a16 0, #0b0504 60%, #000 100%);
   border-radius: 50%;
   transform: translateX(-50%);
-  filter: blur(1px);
+  filter: blur(0.5px);
 }
 
-/* Face */
+/* Facial features */
 .eye {
   position: absolute;
-  top: 24px;
-  width: 8px;
-  height: 8px;
+  top: 28px;
+  width: 9px;
+  height: 9px;
   background: #000;
   border-radius: 50%;
 }
@@ -112,8 +99,8 @@ body {
 
 .brow {
   position: absolute;
-  top: 16px;
-  width: 16px;
+  top: 20px;
+  width: 18px;
   height: 3px;
   background: #000;
   border-radius: 3px;
@@ -121,12 +108,23 @@ body {
 .brow.left { left: 14px; }
 .brow.right { right: 14px; }
 
+.nose {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border-bottom: 3px solid #000;
+  transform: translateX(-50%);
+}
+
 .mouth {
   position: absolute;
   bottom: 14px;
   left: 50%;
-  width: 24px;
-  height: 12px;
+  width: 26px;
+  height: 14px;
   border-radius: 0 0 20px 20px;
   border-bottom: 3px solid #000;
   transform: translateX(-50%);
@@ -134,55 +132,64 @@ body {
 
 /* Body */
 .body {
-  width: 56px;
-  height: 84px;
-  border-radius: 14px;
-  margin-top: 6px;
+  width: 60px;
+  height: 90px;
+  border-radius: 16px;
+  margin-top: 8px;
 }
 
 /* Arms */
 .arms {
-  width: 80px;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2px;
-}
-.arm {
-  width: 18px;
-  height: 60px;
-  border-radius: 12px;
-  transform-origin: top center;
-  animation: armSwing 0.9s infinite;
-}
-
-/* Legs */
-.legs {
-  width: 56px;
-  height: 64px;
+  width: 90px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   margin-top: 4px;
 }
+.arm {
+  width: 20px;
+  height: 70px;
+  border-radius: 14px;
+  transform-origin: top center;
+  animation: armSwing 0.9s infinite;
+}
+
+/* Hands */
+.hand {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  background: inherit;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* Legs */
+.legs {
+  width: 60px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
 .leg {
-  width: 22px;
-  height: 64px;
-  border-radius: 12px;
+  width: 24px;
+  height: 80px;
+  border-radius: 14px;
 }
 
 /* Man styling */
-#man .head { background: #2a1b0e; }
+#man .head { /* bald, no hair */ }
 #man .body { background: #1b3b7a; }
-#man .leg { background: #111; }
-#man .arm { background: #2a1b0e; }
+#man .arm, #man .leg { background: #2a1b0e; }
 
 /* Woman styling */
-#woman .head { background: #3a2615; }
 #woman .body { background: #b03060; }
-#woman .leg { background: #222; }
-#woman .arm { background: #3a2615; }
+#woman .arm, #woman .leg { background: #3a2615; }
 
-/* Walk + arm swing */
+/* Walk animation */
 @keyframes walk {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
@@ -194,221 +201,72 @@ body {
   100% { transform: rotate(12deg); }
 }
 
-/* Hearts + kiss */
-#hearts, #kiss {
+/* Hearts */
+#hearts {
   position: absolute;
+  top: 40%;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 34px;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
-#hearts { top: 30%; font-size: 32px; }
-#kiss { top: 42%; font-size: 26px; }
-
-/* Car in scene 1 */
-#car1 {
-  position: absolute;
-  bottom: 190px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 320px;
-  height: 140px;
-  background: #222;
-  border-radius: 30px;
-  display: none;
-}
-#car1::before, #car1::after {
-  content: "";
-  position: absolute;
-  bottom: -30px;
-  width: 80px;
-  height: 80px;
-  background: #111;
-  border-radius: 50%;
-}
-#car1::before { left: 30px; }
-#car1::after { right: 30px; }
-#car1 .window {
-  position: absolute;
-  top: 20px;
-  left: 40px;
-  width: 240px;
-  height: 60px;
-  background: #87a9d8;
-  border-radius: 20px;
-}
 
 /* ========== SCENE 2: CAR INTERIOR ========== */
-#carInterior {
-  position: absolute;
-  inset: 0;
-  background: #111;
+#scene2 {
+  background: radial-gradient(circle at top, #444 0, #111 55%);
   display: none;
 }
 
 /* Dashboard */
 .dashboard {
   position: absolute;
-  bottom: 140px;
+  bottom: 150px;
   width: 100%;
-  height: 130px;
-  background: #333;
+  height: 140px;
+  background: #222;
 }
 
-/* Steering wheel */
-.steeringWheel {
+/* Windshield view (moving road outside) */
+.windshield {
   position: absolute;
-  bottom: 170px;
+  top: 60px;
   left: 50%;
-  width: 150px;
-  height: 150px;
-  background: #000;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 0 8px #222;
-}
-
-/* Driver + passenger heads */
-.driver, .passenger {
-  position: absolute;
-  bottom: 210px;
-}
-.driver { left: 38%; }
-.passenger { right: 38%; }
-
-/* Bald boy */
-.driver .head {
-  background: #2a1b0e;
-}
-
-/* Afro girl */
-.passenger .head {
-  background: #3a2615;
-}
-.passenger .head .afro {
-  top: -22px;
-  width: 100px;
-  height: 100px;
-}
-
-/* Hands */
-.handOnWheel {
-  position: absolute;
-  bottom: 190px;
-  left: 50%;
-  width: 22px;
-  height: 70px;
-  background: #2a1b0e;
-  border-radius: 12px;
-  transform: translateX(-50%) rotate(18deg);
-  transform-origin: top center;
-}
-.passengerHand {
-  position: absolute;
-  bottom: 190px;
-  right: 40%;
-  width: 22px;
-  height: 60px;
-  background: #3a2615;
-  border-radius: 12px;
-  transform-origin: top center;
-  transform: rotate(-10deg);
-}
-
-/* Interior dialog */
-#dialogInterior {
-  top: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* ========== SCENE 3: DRIVING BACK VIEW ========== */
-#scene3 {
-  position: absolute;
-  inset: 0;
-  background: #87CEEB;
-  display: none;
-  overflow: hidden;
-}
-
-/* Clouds */
-.cloud {
-  position: absolute;
-  top: 40px;
-  width: 140px;
-  height: 70px;
-  background: white;
-  border-radius: 40px;
-  opacity: 0.85;
-  animation: cloudMove 28s linear infinite;
-}
-.cloud::before, .cloud::after {
-  content: "";
-  position: absolute;
-  background: white;
-  width: 90px;
-  height: 55px;
-  border-radius: 40px;
-}
-.cloud::before { top: -20px; left: 10px; }
-.cloud::after { top: 10px; left: 60px; }
-
-@keyframes cloudMove {
-  0% { left: 110%; }
-  100% { left: -180px; }
-}
-
-/* City + hills parallax */
-.layerCity {
-  position: absolute;
-  bottom: 220px;
-  width: 200%;
+  width: 70%;
   height: 120px;
-  background:
-    linear-gradient(#2f3b4a 0, #2f3b4a 40px, transparent 40px),
-    repeating-linear-gradient(
-      to right,
-      #2f3b4a 0px,
-      #2f3b4a 40px,
-      #44556b 40px,
-      #44556b 80px
-    );
-  opacity: 0.9;
-  animation: cityMove 10s linear infinite;
-}
-@keyframes cityMove {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  background: #6fa9e8;
+  border-radius: 20px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  box-shadow: 0 0 0 6px #333;
 }
 
-.layerHills {
-  position: absolute;
-  bottom: 200px;
-  width: 200%;
-  height: 180px;
-  background: radial-gradient(circle at 10% 0, #3f8f3f 0, #3f8f3f 40%, transparent 40%),
-              radial-gradient(circle at 40% 0, #3f8f3f 0, #3f8f3f 40%, transparent 40%),
-              radial-gradient(circle at 80% 0, #3f8f3f 0, #3f8f3f 40%, transparent 40%);
-  opacity: 0.8;
-  animation: hillsMove 16s linear infinite;
-}
-@keyframes hillsMove {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Moving road */
-#road {
+/* Road outside */
+.roadOutside {
   position: absolute;
   bottom: 0;
   width: 200%;
-  height: 220px;
+  height: 60px;
   background: repeating-linear-gradient(
     to bottom,
     #333 0px,
-    #333 90px,
-    #444 90px,
-    #444 180px
+    #333 30px,
+    #444 30px,
+    #444 60px
+  );
+  animation: roadMove 0.8s linear infinite;
+}
+.laneOutside {
+  position: absolute;
+  bottom: 30px;
+  width: 200%;
+  height: 6px;
+  background: repeating-linear-gradient(
+    to right,
+    #f5f5f5 0px,
+    #f5f5f5 40px,
+    transparent 40px,
+    transparent 80px
   );
   animation: roadMove 0.8s linear infinite;
 }
@@ -417,188 +275,274 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* Lane markings */
-#lane {
+/* Steering wheel */
+.steeringWheel {
   position: absolute;
-  bottom: 110px;
-  width: 200%;
-  height: 10px;
-  background: repeating-linear-gradient(
-    to right,
-    #f5f5f5 0px,
-    #f5f5f5 60px,
-    transparent 60px,
-    transparent 120px
-  );
-  opacity: 0.9;
-  animation: laneMove 0.8s linear infinite;
-}
-@keyframes laneMove {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  bottom: 170px;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  background: #000;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 8px #333;
 }
 
-/* Back-view car */
-#carBack {
+/* Driver + passenger heads (closer) */
+.driver, .passenger {
   position: absolute;
-  bottom: 140px;
-  left: 50%;
-  width: 260px;
-  height: 150px;
-  background: #222;
-  border-radius: 30px;
-  transform: translateX(-50%);
-  animation: carBounce 0.7s ease-in-out infinite;
+  bottom: 210px;
 }
-#carBack::before, #carBack::after {
-  content: "";
-  position: absolute;
-  bottom: -30px;
+.driver { left: 32%; }
+.passenger { right: 32%; }
+
+/* Interior heads reuse same style */
+.driver .head, .passenger .head {
   width: 80px;
   height: 80px;
-  background: #111;
-  border-radius: 50%;
 }
-#carBack::before { left: 30px; }
-#carBack::after { right: 30px; }
 
-/* Rear window */
-#carBack .rear-window {
+/* Afro in interior */
+.passenger .afro {
+  top: -26px;
+  width: 110px;
+  height: 110px;
+}
+
+/* Hands on wheel */
+.handOnWheelLeft, .handOnWheelRight {
   position: absolute;
-  top: 20px;
-  left: 40px;
-  width: 180px;
+  bottom: 190px;
+  width: 22px;
   height: 70px;
-  background: #6f8fb8;
-  border-radius: 20px;
+  background: #2a1b0e;
+  border-radius: 14px;
+  transform-origin: top center;
+}
+.handOnWheelLeft {
+  left: 50%;
+  transform: translateX(-70px) rotate(18deg);
+}
+.handOnWheelRight {
+  left: 50%;
+  transform: translateX(50px) rotate(-18deg);
 }
 
-/* Tail lights */
-.tail {
+/* Passenger hand */
+.passengerHand {
   position: absolute;
-  bottom: 20px;
-  width: 30px;
-  height: 20px;
-  background: #ff4444;
-}
-.tail.left { left: 20px; }
-.tail.right { right: 20px; }
-
-/* Car bounce */
-@keyframes carBounce {
-  0% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, -4px); }
-  100% { transform: translate(-50%, 0); }
+  bottom: 190px;
+  right: 34%;
+  width: 22px;
+  height: 60px;
+  background: #3a2615;
+  border-radius: 14px;
+  transform-origin: top center;
+  transform: rotate(-10deg);
 }
 
-/* Hearts while driving */
-#driveHearts {
+/* Interior dialog */
+#dialogInterior {
   position: absolute;
-  bottom: 260px;
+  top: 18%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 30px;
+  max-width: 260px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  font-size: 14px;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.5s ease;
+}
+#dialogInterior::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0 10px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
 }
 
-/* Fade overlay */
-#fadeOverlay {
+/* Car bounce (camera feel) */
+#scene2CarWrapper {
   position: absolute;
   inset: 0;
-  background: black;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 2s ease;
+  animation: carBounce 0.7s ease-in-out infinite;
+}
+@keyframes carBounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
 }
 </style>
 </head>
 <body>
 
-<!-- ========== SCENE 1: MEETING ========== -->
-<div id="scene1">
-  <div class="hill h1"></div>
-  <div class="hill h2"></div>
-  <div class="hill h3"></div>
+<!-- ========== SCENE 1: STREET MEET ========== -->
+<div id="scene1" class="scene">
   <div id="ground"></div>
+  <div class="building b1"></div>
+  <div class="building b2"></div>
+  <div class="building b3"></div>
 
-  <div id="man" class="character" style="left:-180px;">
-    <div class="head">
+  <!-- Man (bald) -->
+  <div id="man" class="character" style="left:-160px; animation: walk 0.9s infinite;">
+    <div class="head skin-dark">
       <div class="eye left"></div>
       <div class="eye right"></div>
       <div class="brow left"></div>
       <div class="brow right"></div>
+      <div class="nose"></div>
       <div class="mouth"></div>
     </div>
-    <div class="body"></div>
+    <div class="body" style="background:#1b3b7a;"></div>
     <div class="arms">
-      <div class="arm left"></div>
-      <div class="arm right"></div>
+      <div class="arm skin-dark">
+        <div class="hand"></div>
+      </div>
+      <div class="arm skin-dark">
+        <div class="hand"></div>
+      </div>
     </div>
     <div class="legs">
-      <div class="leg"></div>
-      <div class="leg"></div>
+      <div class="leg skin-dark"></div>
+      <div class="leg skin-dark"></div>
     </div>
   </div>
 
-  <div id="woman" class="character" style="right:-180px;">
-    <div class="head">
+  <!-- Woman (textured afro) -->
+  <div id="woman" class="character" style="right:-160px; animation: walk 0.9s infinite;">
+    <div class="head skin-medium">
       <div class="afro"></div>
       <div class="eye left"></div>
       <div class="eye right"></div>
       <div class="brow left"></div>
       <div class="brow right"></div>
+      <div class="nose"></div>
       <div class="mouth"></div>
     </div>
-    <div class="body"></div>
+    <div class="body" style="background:#b03060;"></div>
     <div class="arms">
-      <div class="arm left"></div>
-      <div class="arm right"></div>
+      <div class="arm skin-medium">
+        <div class="hand"></div>
+      </div>
+      <div class="arm skin-medium">
+        <div class="hand"></div>
+      </div>
     </div>
     <div class="legs">
-      <div class="leg"></div>
-      <div class="leg"></div>
+      <div class="leg skin-medium"></div>
+      <div class="leg skin-medium"></div>
     </div>
-  </div>
-
-  <div id="car1">
-    <div class="window"></div>
   </div>
 
   <div id="hearts">❤️ ❤️ ❤️</div>
-  <div id="kiss">💋</div>
-
-  <div id="dialogMan" class="dialog" style="bottom: 340px; left: 20%;">
-    You look amazing today.
-  </div>
-  <div id="dialogWoman" class="dialog" style="bottom: 340px; right: 20%;">
-    I’m glad you came. Let’s ride.
-  </div>
 </div>
 
 <!-- ========== SCENE 2: CAR INTERIOR ========== -->
-<div id="carInterior">
-  <div class="dashboard"></div>
-  <div class="steeringWheel"></div>
+<div id="scene2" class="scene">
+  <div id="scene2CarWrapper">
+    <div class="windshield">
+      <div class="roadOutside"></div>
+      <div class="laneOutside"></div>
+    </div>
 
-  <div class="driver">
-    <div class="head">
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-      <div class="brow left"></div>
-      <div class="brow right"></div>
-      <div class="mouth"></div>
+    <div class="dashboard"></div>
+    <div class="steeringWheel"></div>
+
+    <!-- Driver (bald) -->
+    <div class="driver">
+      <div class="head skin-dark">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="brow left"></div>
+        <div class="brow right"></div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+
+    <!-- Passenger (afro) -->
+    <div class="passenger">
+      <div class="head skin-medium">
+        <div class="afro"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="brow left"></div>
+        <div class="brow right"></div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+
+    <!-- Hands -->
+    <div class="handOnWheelLeft"></div>
+    <div class="handOnWheelRight"></div>
+    <div class="passengerHand"></div>
+
+    <div id="dialogInterior">
+      You know this feels like the start of something.
+      <br><strong>Yeah… keep driving.</strong>
     </div>
   </div>
+</div>
 
-  <div class="passenger">
-    <div class="head">
-      <div class="afro"></div>
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-      <div class="brow left"></div>
-      <div class="brow right"></div>
-      <div class="mouth"></div>
-    </div>
-  </div>
+<script>
+// ====== ELEMENTS ======
+const man = document.getElementById("man");
+const woman = document.getElementById("woman");
+const scene1 = document.getElementById("scene1");
+const scene2 = document.getElementById("scene2");
+const hearts = document.getElementById("hearts");
+const dialogInterior = document.getElementById("dialogInterior");
 
+let manX = -160;
+let womanX = -160;
+
+// ====== SCENE 1: WALK TOWARD EACH OTHER ======
+const meetInterval = setInterval(() => {
+  manX += 2;
+  womanX += 2;
+
+  man.style.left = manX + "px";
+  woman.style.right = womanX + "px";
+
+  // When they reach near center
+  if (manX >= window.innerWidth / 2 - 260) {
+    clearInterval(meetInterval);
+
+    // Stop walk animation
+    man.style.animation = "none";
+    woman.style.animation = "none";
+
+    // Show hearts
+    setTimeout(() => {
+      hearts.style.opacity = 1;
+
+      // Hold the moment
+      setTimeout(() => {
+        hearts.style.opacity = 0;
+
+        // Transition to car interior
+        setTimeout(() => {
+          scene1.style.display = "none";
+          scene2.style.display = "block";
+
+          // Show interior dialog
+          setTimeout(() => {
+            dialogInterior.style.opacity = 1;
+          }, 800);
+
+        }, 600);
+      }, 1500);
+    }, 500);
+  }
+}, 12);
+</script>
+
+</body>
+</html>
